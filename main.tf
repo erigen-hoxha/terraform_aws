@@ -1,6 +1,6 @@
 # In this block is called the VPC module
 module "vpc" {
-  source = "./modules/vpc/main.tf"
+  source = "./modules/vpc"
 }
 
 # In this block is called the Load Balancers module
