@@ -1,8 +1,8 @@
 resource "aws_launch_configuration" "web_lc" {
-  name          = "web-client-lc"
-  image_id      = var.ec2_ami
-  instance_type = var.ec2_instance_type
-  security_groups = [aws_security_group.web_sg.id]
+  name              = "web-client-lc"
+  image_id          = var.ec2_ami
+  instance_type     = var.ec2_instance_type
+  security_groups   = [aws_security_group.web_sg.id]
 }
 
 resource "aws_autoscaling_group" "web_asg" {
@@ -10,14 +10,14 @@ resource "aws_autoscaling_group" "web_asg" {
   max_size             = var.asg_max_size
   min_size             = var.asg_min_size
   vpc_zone_identifier  = [aws_subnet.public_subnet_1.id, aws_subnet.public_subnet_2.id]
-  launch_configuration = aws_launch_configuration.web_lc.id
+  launch_configuration  = aws_launch_configuration.web_lc.id
 }
 
 resource "aws_autoscaling_policy" "scale_up" {
   name                   = "scale-up-policy"
   scaling_adjustment     = 1
   adjustment_type        = "ChangeInCapacity"
-  cooldown               = 300
+  cooldown               = var.cooldown_period
   autoscaling_group_name = aws_autoscaling_group.web_asg.name
 }
 
@@ -25,7 +25,7 @@ resource "aws_autoscaling_policy" "scale_down" {
   name                   = "scale-down-policy"
   scaling_adjustment     = -1
   adjustment_type        = "ChangeInCapacity"
-  cooldown               = 300
+  cooldown               = var.cooldown_period
   autoscaling_group_name = aws_autoscaling_group.web_asg.name
 }
 
@@ -37,7 +37,7 @@ resource "aws_cloudwatch_metric_alarm" "high_cpu" {
   namespace           = "AWS/EC2"
   period              = 120
   statistic           = "Average"
-  threshold           = 70
+  threshold           = var.cpu_high_threshold
   alarm_description   = "Alarm when CPU exceeds 70% utilization"
   dimensions = {
     AutoScalingGroupName = aws_autoscaling_group.web_asg.name
@@ -54,7 +54,7 @@ resource "aws_cloudwatch_metric_alarm" "low_cpu" {
   namespace           = "AWS/EC2"
   period              = 120
   statistic           = "Average"
-  threshold           = 30
+  threshold           = var.cpu_low_threshold
   alarm_description   = "Alarm when CPU falls below 30% utilization"
   dimensions = {
     AutoScalingGroupName = aws_autoscaling_group.web_asg.name
