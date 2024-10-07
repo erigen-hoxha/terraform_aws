@@ -1,10 +1,8 @@
-# Output the Auto Scaling Group name
 output "asg_name" {
   value       = aws_autoscaling_group.web_asg.name
   description = "Name of the Auto Scaling Group"
 }
 
-# Output the scaling policy ARNs
 output "scale_up_policy_arn" {
   value       = aws_autoscaling_policy.scale_up.arn
   description = "ARN of the scale-up policy"
@@ -15,7 +13,6 @@ output "scale_down_policy_arn" {
   description = "ARN of the scale-down policy"
 }
 
-# Output the CloudWatch alarm names
 output "high_cpu_alarm_name" {
   value       = aws_cloudwatch_metric_alarm.high_cpu.alarm_name
   description = "Name of the high CPU utilization alarm"
