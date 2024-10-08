@@ -26,6 +26,18 @@ output "ecs_service_name" {
   description = "name of the ECS service"
 }
 
+output "ecs_service_arn" {
+  value = module.ecs_fargate.ecs_service_arn
+}
+
+output "ecs_cluster_id" {
+  value = module.ecs_fargate.ecs_cluster_id
+}
+
+output "task_definition_arn" {
+  value = module.ecs_fargate.task_definition_arn
+}
+
 # Output from RDS (Database)
 output "rds_instance_id" {
   value = module.rds.rds_instance_id
