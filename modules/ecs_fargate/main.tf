@@ -48,7 +48,12 @@ resource "aws_ecs_service" "api_service" {
   desired_count   = var.ecs_desired_count
   launch_type     = "FARGATE"
   network_configuration {
-    subnets         = [aws_subnet.private_subnet_1.id, aws_subnet.private_subnet_2.id]
-    security_groups = [aws_security_group.api_sg.id]
+    subnets         = var.network_configuration.subnets
+    security_groups = var.network_configuration.security_groups
+  }
+  load_balancer {
+    target_group_arn = var.target_group_arn
+    container_name   = "api-container"
+    container_port   = 3001
   }
 }
