@@ -6,6 +6,8 @@ module "vpc" {
 # In this block is called the Load Balancers module
 module "load_balancers" {
   source = "./modules/load_balancers"
+  vpc_id = module.vpc.vpc_id
+  subnets = module.vpc.public_subnet_ids
 }
 
 # In this block is called the Autoscaling module
