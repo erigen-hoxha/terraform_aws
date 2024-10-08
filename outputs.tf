@@ -4,14 +4,30 @@ output "vpc_id" {
 }
 
 # Output from Load Balancer module
-output "public_alb_dns" {
+output "public_lb_dns" {
   value = module.load_balancers.public_lb_dns
   description = "DNS name of the public App LB"
 }
 
-output "internal_elb_dns" {
+output "internal_lb_dns" {
   value = module.load_balancers.internal_lb_dns
   description = "DNS name of the internal ELB"
+}
+
+output "public_lb_arn" {
+  value = module.load_balancers.public_lb_arn
+}
+
+output "internal_lb_arn" {
+  value = module.load_balancers.internal_lb_arn
+}
+
+output "public_lb_zone_id" {
+  value = module.load_balancers.public_lb_zone_id
+}
+
+output "internal_lb_zone_id" {
+  value = module.load_balancers.internal_lb_zone_id
 }
 
 # Output from Auto Scaling Group (EC2 instances)
