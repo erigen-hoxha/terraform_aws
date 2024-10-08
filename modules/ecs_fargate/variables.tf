@@ -6,6 +6,10 @@ variable "network_configuration" {
   })
 }
 
+variable "target_group_arn" {
+  description = "ARN of the target group for the load balancer"
+}
+
 variable "ecs_memory" {
   default = "512"
 }
