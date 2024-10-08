@@ -1,3 +1,11 @@
+variable "network_configuration" {
+  description = "Network configuration for the ECS service"
+  type = object({
+    subnets         = list(string)
+    security_groups = list(string)
+  })
+}
+
 variable "ecs_memory" {
   default = "512"
 }
