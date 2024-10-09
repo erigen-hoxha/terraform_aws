@@ -19,6 +19,9 @@ resource "aws_iam_role" "ecs_task_execution_role" {
   })
 }
 
+#This block creates an ECS service that runs a specified number of instances of a containerized application defined by a task definition, using AWS Fargate for deployment.
+#It configures networking, security, and integrates with a load balancer to manage traffic to the application.
+
 resource "aws_ecs_task_definition" "api_task" {
   family                   = "api-task"
   network_mode             = "awsvpc"
