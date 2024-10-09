@@ -1,3 +1,6 @@
+#this configuration file sets up a public application load balancer for web traffic, 
+#an internal network load balancer for internal traffic, and forwards the traffic to ECS services via a target group with health checks.
+
 resource "aws_lb" "public_lb" {
   name               = "public-alb"
   internal           = false
